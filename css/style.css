@@ -830,3 +830,116 @@ section { scroll-margin-top: 84px; }
   .collections-grid { grid-template-columns: 1fr; }
   .nav-links { padding-top: 90px; }
 }
+
+/* ============================================================
+   (II) اللغة الإنجليزية (LTR) + زر اللغة
+   ============================================================ */
+html[lang="en"] {
+  --font-body: "Jost", "Tajawal", system-ui, -apple-system, sans-serif;
+  --font-head: "Cormorant Garamond", "Amiri", Georgia, serif;
+  --font-brand: "Cinzel", "Aref Ruqaa", serif;
+}
+html[lang="en"] .hero-title { letter-spacing: 1.5px; }
+html[lang="en"] .brand-text strong { letter-spacing: .8px; }
+html[lang="en"] .brand-text small { letter-spacing: 1.2px; text-transform: uppercase; }
+html[lang="en"] .loader-brand { letter-spacing: 2px; }
+html[lang="en"] .sec-head h2 { letter-spacing: .4px; }
+html[lang="en"] .p-name { font-weight: 600; }
+html[lang="en"] .col-overlay h3 { letter-spacing: .4px; }
+html[lang="en"] .contact-card h4 { letter-spacing: .5px; }
+html[dir="ltr"] svg.arr { transform: scaleX(-1); }
+
+.lang-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 52px; height: 44px; padding: 0 12px;
+  border-radius: 13px;
+  border: 1px solid var(--line-2);
+  background: rgba(201, 163, 92, .07);
+  color: var(--gold-2);
+  font-weight: 800; font-size: .82rem; letter-spacing: .6px;
+  transition: all .25s;
+}
+.lang-btn:hover {
+  background: linear-gradient(120deg, #f0d48c, var(--gold));
+  color: #1c1404; border-color: transparent; transform: translateY(-2px);
+}
+
+/* في الوضع الإنجليزي تنزلق السلة والقائمة من اليسار */
+html[dir="ltr"] .cart-drawer {
+  right: auto; left: 0;
+  box-shadow: 30px 0 80px rgba(0, 0, 0, .6);
+  transform: translateX(-105%);
+}
+html[dir="ltr"] .cart-drawer.open { transform: translateX(0); }
+@media (max-width: 760px) {
+  html[dir="ltr"] .nav-links {
+    right: auto; left: 0;
+    box-shadow: 30px 0 70px rgba(0, 0, 0, .6);
+    transform: translateX(-105%);
+  }
+  html[dir="ltr"] .nav-links.open { transform: translateX(0); }
+}
+
+/* ============================================================
+   (III) تجاوب محسّن لكل أحجام الهواتف
+   ============================================================ */
+a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+@media (max-width: 760px) {
+  .filter-pills { flex-wrap: nowrap; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .filter-pills::-webkit-scrollbar { display: none; }
+  .pill { flex: none; padding: 8px 18px; }
+  .toolbar { width: 100%; }
+  .search-box { flex: 1; }
+  .search-box input { width: 100%; font-size: 16px; }
+  .sort-select { font-size: 16px; }
+  .cart-details input, .cart-details textarea { font-size: 16px; }
+  .topbar { font-size: .68rem; line-height: 1.6; padding: 6px 10px; }
+  .hero { min-height: calc(100vh - 33px); min-height: calc(100svh - 33px); }
+}
+
+@media (max-width: 640px) {
+  /* شبكة منتجات عمودان على كل الهواتف */
+  .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-card { border-radius: 14px; }
+  .p-body { padding: 11px 12px 13px; gap: 6px; }
+  .p-name { font-size: 1.02rem; line-height: 1.35; }
+  .p-cat { font-size: .66rem; }
+  .p-desc, .p-notes, .unit { display: none; }
+  .size-row .size-btn { padding: 6px 2px; font-size: .72rem; border-radius: 8px; }
+  .p-foot { flex-wrap: wrap; gap: 7px; }
+  .p-price strong { font-size: 1rem; }
+  .add-btn { flex: 1; min-height: 40px; padding: 9px 6px; font-size: .78rem; }
+  .add-btn svg { width: 14px; height: 14px; }
+  .quick-wa { width: 40px; height: 40px; }
+  .p-view-btn { padding: 6px 12px; font-size: .7rem; gap: 5px; }
+  .p-badge { top: 8px; inset-inline-start: 8px; padding: 4px 9px; font-size: .62rem; }
+  .collection-card { border-radius: 14px; }
+  .col-overlay { padding: 12px; }
+  .col-overlay h3 { font-size: 1.02rem; }
+  .col-overlay p { display: none; }
+  .cart-drawer { width: min(430px, 100vw); }
+  /* النافذة تنبثق من أسفل الشاشة كصفحة جوال */
+  .modal { padding: 0; display: flex; align-items: flex-end; }
+  .modal-card { width: 100%; max-height: 94vh; border-radius: 22px 22px 0 0; }
+  .modal-close { top: 10px; inset-inline-end: 10px; }
+}
+
+@media (max-width: 430px) {
+  .nav-inner { gap: 8px; min-height: 62px; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand-text strong { font-size: 1.12rem; }
+  .brand-text small { display: none; }
+  .icon-btn, .menu-btn { width: 40px; height: 40px; border-radius: 11px; }
+  .lang-btn { min-width: 44px; height: 40px; padding: 0 8px; font-size: .72rem; }
+  .nav-actions { gap: 6px; }
+  .wa-float { width: 54px; height: 54px; bottom: 16px; inset-inline-end: 16px; }
+  .toasts { bottom: 16px; }
+}
+
+/* تجاوب الشاشات الصغيرة جداً (أقل من 350 بكسل) */
+@media (max-width: 349px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 2.5rem; }
+  .topbar { display: none; }
+}
