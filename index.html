@@ -429,10 +429,22 @@
       </h3>
       <button class="close-btn" id="cartCloseBtn" aria-label="إغلاق السلة">✕</button>
     </div>
-    <div class="cart-items" id="cartItems">
-      <!-- تُعبأ عبر JS -->
+    <!-- مؤشر خطوات السلة -->
+    <div class="chk-progress" id="chkProgress" hidden>
+      <div class="chk-step active" data-chk="1">
+        <span class="chk-num">1</span><em data-i18n="chkStep1">السلة</em>
+      </div>
+      <i class="chk-line"></i>
+      <div class="chk-step" data-chk="2">
+        <span class="chk-num">2</span><em data-i18n="chkStep2">بيانات التوصيل</em>
+      </div>
+      <i class="chk-line"></i>
+      <div class="chk-step" data-chk="3">
+        <span class="chk-num">3</span><em data-i18n="chkStep3">إرسال</em>
+      </div>
     </div>
-    <div class="cart-empty" id="cartEmpty">
+
+    <div class="cart-empty" id="cartEmpty" hidden>
       <span class="empty-ico" aria-hidden="true">
         <svg class="empty-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="9" cy="21" r="1.6"/>
@@ -444,25 +456,69 @@
       <small data-i18n="cEmptyS">أضف عطورك المفضلة واطلبها عبر واتساب</small>
       <button class="btn btn-gold" id="continueShopping"><span data-i18n="cEmptyB">تصفّح العطور</span></button>
     </div>
-    <div class="cart-foot" id="cartFoot" hidden>
-      <div class="cart-details">
-        <div class="cart-field">
-          <label for="custName" data-i18n="cNameL">اسمك الكريم (اختياري)</label>
-          <input type="text" id="custName" placeholder="مثال: رنا خليل" autocomplete="name" data-i18n-ph="cNamePh">
-        </div>
-        <div class="cart-field">
-          <label for="custNote" data-i18n="cNoteL">ملاحظات / عنوان التوصيل (اختياري)</label>
-          <textarea id="custNote" rows="1" placeholder="مثال: شارع المدرسة المريمية، بناية رقم 5…" data-i18n-ph="cNotePh"></textarea>
-        </div>
+
+    <div class="cart-scroll" id="cartScroll" hidden>
+      <!-- الخطوة 1: مراجعة العناصر -->
+      <div class="chk-pane" id="paneItems">
+        <p class="chk-pane-title" data-i18n="chkItemsTitle">🛒 مراجعة طلبك — العناصر</p>
+        <div class="cart-items" id="cartItems"><!-- تُعبأ عبر JS --></div>
       </div>
+
+      <!-- الخطوة 2: بيانات العميل -->
+      <div class="chk-pane" id="paneCheckout" hidden>
+        <p class="chk-pane-title" data-i18n="chkFormTitle">👤 بيانات التوصيل</p>
+        <p class="chk-pane-sub" data-i18n="chkFormSub">املأ بياناتك ليصلك الطلب — جميع الحقول مطلوبة ما عدا الملاحظات</p>
+        <form class="chk-form" id="checkoutForm" novalidate autocomplete="on">
+          <div class="cart-field">
+            <label for="custName" data-i18n="fNameL">الاسم الكامل *</label>
+            <input type="text" id="custName" placeholder="مثال: رنا خليل" autocomplete="name" data-i18n-ph="fNamePh">
+          </div>
+          <div class="cart-field">
+            <label for="custPhone" data-i18n="fPhoneL">رقم الهاتف / واتساب *</label>
+            <input type="tel" id="custPhone" dir="ltr" placeholder="03 123 456" inputmode="tel" autocomplete="tel" data-i18n-ph="fPhonePh">
+          </div>
+          <div class="cart-field">
+            <label for="custRegion" data-i18n="fRegionL">المنطقة / المحافظة *</label>
+            <select id="custRegion">
+              <option value="">— اختر منطقتك —</option>
+            </select>
+          </div>
+          <div class="cart-field">
+            <label for="custCity" data-i18n="fCityL">المدينة / البلدة *</label>
+            <select id="custCity" disabled>
+              <option value="">— اختر منطقتك أولاً —</option>
+            </select>
+          </div>
+          <div class="cart-field">
+            <label for="custAddr" data-i18n="fAddrL">العنوان بالتفصيل (الشارع، المبنى، الطابق) *</label>
+            <textarea id="custAddr" rows="2" placeholder="مثال: شارع المدرسة المريمية، بناية رقم 5، الطابق الثالث…" data-i18n-ph="fAddrPh"></textarea>
+          </div>
+          <div class="cart-field">
+            <label for="custNote" data-i18n="fNoteL">ملاحظات إضافية (اختياري)</label>
+            <textarea id="custNote" rows="1" placeholder="مثال: رنّ قبل التوصيل…" data-i18n-ph="fNotePh"></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="cart-foot" id="cartFoot" hidden>
       <div class="cart-total-row">
-        <span data-i18n="cTotalL">الإجمالي</span>
+        <span data-i18n="cartTotalRow">الإجمالي</span>
         <strong id="cartTotal">0</strong>
       </div>
-      <button class="btn btn-wa btn-lg btn-block" id="checkoutBtn">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.49 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35ZM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.44-4.44 9.87-9.89 9.87Zm8.42-18.29A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.47-8.4Z"/></svg>
-        <span data-i18n="cCheck">إتمام الطلب عبر واتساب</span>
+      <!-- أزرار الخطوة 1 -->
+      <button class="btn btn-gold btn-lg btn-block" id="toCheckoutBtn">
+        <span data-i18n="cCont">متابعة ← إدخال بياناتك</span>
       </button>
+      <!-- أزرار الخطوة 2 (مخفية) -->
+      <div id="confirmWrap" hidden>
+        <p class="cart-step2-hint" id="cartStep2Hint"></p>
+        <button class="btn btn-wa btn-lg btn-block" id="checkoutBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.49 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35ZM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.44-4.44 9.87-9.89 9.87Zm8.42-18.29A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.47-8.4Z"/></svg>
+          <span data-i18n="cCheck">إتمام الطلب عبر واتساب</span>
+        </button>
+        <button class="chk-back" id="backToCartBtn" data-i18n="cBack">→ عودة إلى السلة</button>
+      </div>
       <p class="cart-safe" data-i18n="cSafe">🔒 طلبك يُرسل مباشرة إلى واتساب المحل — بدون دفع إلكتروني</p>
     </div>
   </aside>
@@ -480,6 +536,7 @@
 
   <script src="js/i18n.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/lebanon.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
