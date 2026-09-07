@@ -30,6 +30,7 @@
     search: "",
     openProduct: null,
     modalQty: 1,
+    chkStep: 1,   // 1 = العناصر، 2 = بيانات التوصيل
   };
 
   function loadCart() {
@@ -47,19 +48,55 @@
   }
   const getProduct = (id) => PRODUCTS.find((p) => p.id === id);
 
+  /* ============================================================
+     بيانات التوصيل — قوائم مناطق ومدن لبنان
+     ============================================================ */
+  function populateRegions() {
+    if (!custRegionEl || typeof LEBANON_REGIONS === "undefined") return;
+    custRegionEl.innerHTML =
+      `<option value="">— اختر منطقتك —</option>` +
+      LEBANON_REGIONS.map((g) => `<option value="${esc(g.id)}">${esc(g.name)}</option>`).join("");
+    resetCitySelect();
+  }
+  function resetCitySelect() {
+    if (!custCityEl) return;
+    custCityEl.innerHTML = `<option value="">— اختر منطقتك أولاً —</option>`;
+    custCityEl.value = "";
+    custCityEl.disabled = true;
+  }
+  function onRegionChange() {
+    if (!custRegionEl || !custCityEl) return;
+    const g = LEBANON_REGIONS.find((x) => x.id === custRegionEl.value);
+    if (!g) { resetCitySelect(); return; }
+    custCityEl.disabled = false;
+    custCityEl.innerHTML =
+      `<option value="">— اختر مدينتك / بلدتك —</option>` +
+      g.cities.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+    custCityEl.value = "";
+  }
+
   /* ---------- عناصر الصفحة ---------- */
   const grid        = $("#productsGrid");
   const noResults   = $("#noResults");
-  const cartItemsEl = $("#cartItems");
-  const cartEmptyEl = $("#cartEmpty");
-  const cartFootEl  = $("#cartFoot");
-  const cartCountEl = $("#cartCount");
-  const cartTotalEl = $("#cartTotal");
-  const cartDrawer  = $("#cartDrawer");
-  const overlay     = $("#overlay");
-  const quickModal  = $("#quickModal");
-  const modalBody   = $("#modalBody");
-  const toastsEl    = $("#toasts");
+  const cartItemsEl     = $("#cartItems");
+  const cartEmptyEl     = $("#cartEmpty");
+  const cartFootEl      = $("#cartFoot");
+  const cartScrollEl    = $("#cartScroll");
+  const paneItemsEl     = $("#paneItems");
+  const paneCheckoutEl  = $("#paneCheckout");
+  const chkProgressEl   = $("#chkProgress");
+  const toCheckoutBtnEl = $("#toCheckoutBtn");
+  const confirmWrapEl   = $("#confirmWrap");
+  const cartStep2HintEl = $("#cartStep2Hint");
+  const custRegionEl    = $("#custRegion");
+  const custCityEl      = $("#custCity");
+  const cartCountEl     = $("#cartCount");
+  const cartTotalEl     = $("#cartTotal");
+  const cartDrawer      = $("#cartDrawer");
+  const overlay         = $("#overlay");
+  const quickModal      = $("#quickModal");
+  const modalBody       = $("#modalBody");
+  const toastsEl        = $("#toasts");
 
   /* ============================================================
      عرض المنتجات
@@ -201,13 +238,11 @@
     if (totalQty > 0) setTimeout(() => cartCountEl.classList.remove("pop"), 400);
 
     const empty = state.cart.length === 0;
-    cartEmptyEl.hidden = !empty;
-    cartFootEl.hidden = empty;
-    cartItemsEl.hidden = empty;
 
     if (empty) {
       cartItemsEl.innerHTML = "";
       cartTotalEl.innerHTML = I18N.money(0);
+      updateCartView();
       return;
     }
     cartItemsEl.innerHTML = state.cart.map((it) => {
@@ -238,33 +273,123 @@
     const subtotal = cartSubtotal();
     const fee = deliveryFee();
     cartTotalEl.innerHTML = I18N.money(subtotal + fee);
+    updateCartView();
+  }
+
+  /* ============================================================
+     عرض السلة متعددة الخطوات (العناصر → بيانات → الإرسال)
+     ============================================================ */
+  function setChkStep(n) {
+    state.chkStep = n === 2 ? 2 : 1;
+    const isForm = state.chkStep === 2;
+    paneItemsEl.hidden = isForm;
+    paneCheckoutEl.hidden = !isForm;
+    toCheckoutBtnEl.hidden = isForm;
+    confirmWrapEl.hidden = !isForm;
+    if (isForm && cartStep2HintEl) {
+      cartStep2HintEl.textContent = t("cartStep2Hint", { count: cartCount() });
+    }
+    syncChkProgress(isForm);
+  }
+  function syncChkProgress(isForm) {
+    const steps = $$(".chk-step", chkProgressEl);
+    steps.forEach((s) => s.classList.remove("active", "done"));
+    if (isForm) {
+      steps[0].classList.add("done");
+      steps[1].classList.add("active");
+    } else {
+      steps[0].classList.add("active");
+    }
+  }
+  function markOrderSent() {
+    const steps = $$(".chk-step", chkProgressEl);
+    steps.forEach((s) => s.classList.remove("active", "done"));
+    steps[0].classList.add("done");
+    steps[1].classList.add("done");
+    steps[2].classList.add("active");
+  }
+  function updateCartView() {
+    const empty = state.cart.length === 0;
+    cartEmptyEl.hidden = !empty;
+    chkProgressEl.hidden = empty;
+    cartScrollEl.hidden = empty;
+    cartFootEl.hidden = empty;
+    if (empty) { state.chkStep = 1; return; }
+    setChkStep(state.chkStep === 2 ? 2 : 1);
   }
 
   /* ============================================================
      واتساب — إرسال الطلب
      ============================================================ */
-  function buildOrderMessage(name, note) {
-    const lines = state.cart.map((it, i) => {
+  /* ---------- حقول بيانات العميل ---------- */
+  function selText(sel) {
+    if (sel && sel.selectedOptions && sel.selectedOptions[0]) return sel.selectedOptions[0].text;
+    return "";
+  }
+  function orderFields() {
+    const gv = (id) => { const el = $("#" + id); return el ? (el.value || "").trim() : ""; };
+    return {
+      name: gv("custName"),
+      phone: gv("custPhone"),
+      region: custRegionEl ? custRegionEl.value : "",
+      regionName: selText(custRegionEl),
+      city: custCityEl ? custCityEl.value : "",
+      cityName: selText(custCityEl),
+      addr: gv("custAddr"),
+      note: gv("custNote"),
+    };
+  }
+  function phoneValid(p) {
+    let d = String(p).replace(/[^\d]/g, "");
+    if (/^961\d+$/.test(d)) d = d.replace(/^961/, "");
+    else if (d[0] === "0") d = d.slice(1);
+    return /^\d{6,9}$/.test(d);
+  }
+  function validateOrder(f) {
+    if (!f.name) return "reqName";
+    if (!f.phone) return "reqPhone";
+    if (!phoneValid(f.phone)) return "phoneInv";
+    if (!f.region) return "reqRegion";
+    if (!f.city) return "reqCity";
+    if (!f.addr) return "reqAddr";
+    return null;
+  }
+  const focusFieldMap = { reqName: "#custName", reqPhone: "#custPhone", reqRegion: "#custRegion", reqCity: "#custCity", reqAddr: "#custAddr" };
+
+  function buildOrderMessage(f) {
+    const unit = t("ml");
+    const itemLines = state.cart.map((it, i) => {
       const p = getProduct(it.id);
       const price = it.size === 50 ? p.price50 : p.price100;
-      return `${i + 1}) ${p.name} (${it.size} ${t("ml")}) × ${it.qty} = ${I18N.moneyPlain(price * it.qty)}`;
+      return t("itemLine", {
+        n: i + 1, name: p.name, size: it.size, unit,
+        qty: it.qty, total: I18N.moneyPlain(price * it.qty),
+      });
     });
     const subtotal = cartSubtotal();
     const fee = deliveryFee();
     const total = subtotal + fee;
-    const msg = [
-      t("orderTitle", { shop: shopName() }),
-      "──────────────",
-      ...lines,
-      "──────────────",
-      t("totalLbl", { total: I18N.moneyPlain(total) }),
-      fee === 0
-        ? t("dlvFree")
-        : t("dlvFee", { fee: I18N.moneyPlain(fee), min: I18N.moneyPlain(SHOP_CONFIG.freeDeliveryOver) }),
-    ];
-    if (name && name.trim()) msg.push(t("nameLbl", { name: name.trim() }));
-    if (note && note.trim()) msg.push(t("noteLbl", { note: note.trim() }));
-    msg.push("", t("thanksLbl"));
+    const div = "────────────────";
+    const msg = [];
+    msg.push(t("orderTitle", { shop: shopName() }));
+    msg.push("");
+    msg.push(t("secItems"));
+    msg.push(...itemLines);
+    msg.push(div);
+    msg.push(t("totalLbl", { total: I18N.moneyPlain(total) }));
+    msg.push(fee === 0
+      ? t("dlvFree")
+      : t("dlvFee", { fee: I18N.moneyPlain(fee), min: I18N.moneyPlain(SHOP_CONFIG.freeDeliveryOver) }));
+    msg.push("");
+    msg.push(t("secCustomer"));
+    msg.push(t("nameLbl", { name: f.name }));
+    msg.push(t("phoneLbl", { phone: f.phone }));
+    msg.push(t("regionLbl", { region: f.regionName }));
+    msg.push(t("cityLbl", { city: f.cityName }));
+    msg.push(t("addrLbl", { addr: f.addr }));
+    if (f.note) msg.push(t("noteLbl", { note: f.note }));
+    msg.push("");
+    msg.push(t("thanksLbl"));
     return msg.join("\n");
   }
 
@@ -273,11 +398,19 @@
       toast(t("emptyCartToast"), "cart");
       return;
     }
-    const name = $("#custName").value;
-    const note = $("#custNote").value;
-    const url = `${WA_LINK}?text=${encodeURIComponent(buildOrderMessage(name, note))}`;
+    if (state.chkStep !== 2) setChkStep(2);
+    const f = orderFields();
+    const err = validateOrder(f);
+    if (err) {
+      toast(t(err), "cart");
+      const el = $(focusFieldMap[err]);
+      if (el) try { el.focus(); } catch (e) {}
+      return;
+    }
+    const url = `${WA_LINK}?text=${encodeURIComponent(buildOrderMessage(f))}`;
     window.open(url, "_blank");
     toast(t("orderReadyToast"), "ok");
+    markOrderSent();
   }
 
   /* ============================================================
@@ -490,6 +623,15 @@
       $("#products").scrollIntoView({ behavior: "smooth" });
     });
     $("#checkoutBtn").addEventListener("click", checkout);
+    toCheckoutBtnEl.addEventListener("click", () => {
+      if (state.cart.length === 0) return;
+      setChkStep(2);
+      if (cartScrollEl) cartScrollEl.scrollTop = 0;
+    });
+    $("#backToCartBtn").addEventListener("click", () => { setChkStep(1); });
+    const chkForm = $("#checkoutForm");
+    if (chkForm) chkForm.addEventListener("submit", (e) => e.preventDefault());
+    if (custRegionEl) custRegionEl.addEventListener("change", onRegionChange);
     overlay.addEventListener("click", () => { closeCart(); closeMenu(); });
 
     /* القائمة المتنقلة */
@@ -512,6 +654,8 @@
       if (!cartDrawer.classList.contains("open")) document.body.classList.remove("no-scroll");
     }
     function openCart() {
+      state.chkStep = 1;            // عند فتح السلة نبدأ دائماً من مراجعة العناصر
+      updateCartView();
       cartDrawer.classList.add("open");
       overlay.classList.add("show");
       document.body.classList.add("no-scroll");
@@ -590,6 +734,7 @@
      ============================================================ */
   function init() {
     localizeProducts();
+    populateRegions();
     applyLangUI();
     initEvents();
     initReveal();

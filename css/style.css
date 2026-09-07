@@ -992,3 +992,84 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
   .topbar { display: none; }
   .cart-details { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   السلة متعددة الخطوات — إتمام الطلب
+   ============================================================ */
+
+/* مؤشر الخطوات */
+.chk-progress {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 18px 4px; border-bottom: 1px solid var(--line);
+}
+.chk-step {
+  display: flex; align-items: center; gap: 6px;
+  color: #6f6350; font-size: .68rem; flex: 1; min-width: 0; white-space: nowrap;
+}
+.chk-step em { font-style: normal; font-weight: 500; overflow: hidden; text-overflow: ellipsis; }
+.chk-num {
+  width: 22px; height: 22px; flex: none; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--line); font-weight: 800; font-size: .72rem;
+  background: rgba(201,163,92,.05); transition: all .3s;
+}
+.chk-step.active { color: var(--gold-2); }
+.chk-step.active .chk-num { background: linear-gradient(135deg, var(--gold), var(--gold-3)); color: #14100a; border-color: transparent; }
+.chk-step.done .chk-num { background: rgba(37,211,102,.15); border-color: rgba(37,211,102,.4); color: var(--green); }
+.chk-line { flex: none; width: 14px; height: 1px; background: var(--line); }
+
+/* حاوية التمرير */
+.cart-scroll { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; padding: 4px 0; }
+.chk-pane { padding: 12px 18px 18px; min-height: 100%; }
+.chk-pane-title { font-family: var(--font-head); font-size: 1.05rem; color: var(--gold-2); margin-bottom: 4px; }
+.chk-pane-sub { font-size: .72rem; color: var(--muted); margin-bottom: 12px; }
+
+/* عناصر السلة داخل الخطوة 1 */
+.cart-scroll .cart-items {
+  flex: none; overflow: visible; padding: 0; display: flex; flex-direction: column; gap: 10px;
+}
+
+/* نموذج بيانات التوصيل */
+.chk-form { display: flex; flex-direction: column; gap: 11px; }
+.chk-form .cart-field { display: grid; gap: 5px; }
+.chk-form label {
+  font-size: .74rem; color: var(--muted); font-weight: 600; line-height: 1.35;
+  display: flex; align-items: center; gap: 4px;
+}
+.chk-form input, .chk-form textarea, .chk-form select {
+  width: 100%; min-width: 0; background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 11px; color: var(--cream);
+  padding: 10px 12px; font-size: .9rem; line-height: 1.4; outline: none; resize: none;
+  transition: border-color .25s, box-shadow .25s;
+  -webkit-appearance: none; appearance: none;
+}
+.chk-form select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c9a35c' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: left 12px center;
+  padding-inline-end: 8px; cursor: pointer;
+}
+html[dir="ltr"] .chk-form select {
+  background-position: right 12px center;
+}
+.chk-form textarea { min-height: 40px; }
+.chk-form input::placeholder, .chk-form textarea::placeholder { color: #6f6350; }
+.chk-form input:focus, .chk-form textarea:focus, .chk-form select:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,163,92,.12);
+}
+.chk-form select:disabled { opacity: .5; cursor: not-allowed; }
+.chk-form select option { background: var(--panel-2); color: var(--cream); }
+
+/* شريط التمرير داخل خطوة 2: يجعل النموذج يتمرر بنفس الحاوية */
+#cartScroll:has(#paneCheckout:not([hidden])) .chk-pane { padding-bottom: 10px; }
+
+/* الزر الخلفي */
+.chk-back {
+  display: block; width: 100%; text-align: center; margin-top: 8px;
+  color: var(--gold-3); font-size: .8rem; font-weight: 600; padding: 6px;
+  border-radius: 10px; transition: all .2s;
+}
+.chk-back:hover { color: var(--gold-2); background: rgba(201,163,92,.08); }
+
+.cart-step2-hint { text-align: center; font-size: .74rem; color: var(--muted); margin-bottom: 8px; }
+
+/* تفاصيل أرقام الكميات في السلة محاذاة */
+.chk-form input[type="tel"] { text-align: left; letter-spacing: .4px; }
