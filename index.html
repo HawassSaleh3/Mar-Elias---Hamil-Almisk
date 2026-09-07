@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0806">
+  <title>حامل المسك | عطور شرقية أصيلة — مار إلياس، بيروت</title>
+  <meta name="description" content="حامل المسك — محل عطور شرقية في مار إلياس بيروت. مسك، عود، عنبر وورود أصلية 100%. اطلب الآن عبر واتساب وتوصيل لكل لبنان.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- تطبيق اللغة المحفوظة مبكراً لمنع الوميض -->
+  <script>
+    try {
+      if (localStorage.getItem("hamil-lang") === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      }
+    } catch (e) {}
+  </script>
+
+  <!-- الخطوط العربية والإنجليزية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- شريط الإعلان العلوي -->
+  <div class="topbar">
+    <p data-i18n="topbar">✨ توصيل سريع في بيروت وجميع المناطق اللبنانية &nbsp;•&nbsp; الدفع عند الاستلام &nbsp;•&nbsp; عطور أصلية 100%</p>
+  </div>
+
+  <!-- شاشة التحميل -->
+  <div class="loader" id="loader">
+    <div class="loader-ring"></div>
+    <p class="loader-brand" data-i18n="fBrand">حاملُ المسك</p>
+  </div>
+
+  <!-- رأس الصفحة -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand" aria-label="حامل المسك — الرئيسية">
+        <span class="brand-mark">
+          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f0d48c"/>
+                <stop offset=".5" stop-color="#c9a35c"/>
+                <stop offset="1" stop-color="#93712f"/>
+              </linearGradient>
+            </defs>
+            <rect x="3" y="3" width="42" height="42" rx="12" fill="url(#goldGrad)"/>
+            <path d="M24 10c6 7.5 9.5 12 9.5 16.5a9.5 9.5 0 1 1-19 0C14.5 22 18 17.5 24 10Z" fill="#14100a"/>
+            <path d="M24 21.5c3.3 3.6 5 6.2 5 8.3a5 5 0 1 1-10 0c0-2.1 1.7-4.7 5-8.3Z" fill="url(#goldGrad)"/>
+            <path d="M21.5 35.5h5" stroke="#f0d48c" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong data-i18n="fBrand">حامل المسك</strong>
+          <small data-i18n="fBrandSub">مار إلياس • بيروت</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="التنقل الرئيسي">
+        <a href="#home" class="active" data-i18n="navHome">الرئيسية</a>
+        <a href="#collections" data-i18n="navCollections">مجموعاتنا</a>
+        <a href="#products" data-i18n="navProducts">العطور</a>
+        <a href="#about" data-i18n="navAbout">من نحن</a>
+        <a href="#reviews" data-i18n="navReviews">آراء عملائنا</a>
+        <a href="#contact" data-i18n="navContact">تواصل معنا</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="lang-btn" id="langBtn" aria-label="English">EN</button>
+        <a href="tel:+9613027355" class="icon-btn call-btn" aria-label="اتصل بنا" title="03 027355">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2.05Z"/></svg>
+        </a>
+        <button class="icon-btn cart-btn" id="cartOpenBtn" aria-label="فتح سلة التسوق" title="سلة التسوق">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2.5 3h2l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-btn" id="menuBtn" aria-label="القائمة">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ القسم الرئيسي Hero ============ -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-text reveal">
+        <span class="eyebrow" data-i18n="heroEyebrow">🕌 عطور شرقية أصيلة — مار إلياس، بيروت</span>
+        <h1 class="hero-title">
+          <span data-i18n="heroT1">حاملُ</span>
+          <span class="gold-grad" data-i18n="heroT2">المسك</span>
+        </h1>
+        <p class="hero-subtitle" data-i18n="heroSub">حيث يلتقي عبقُ العود والعنبر بروح بيروت الأصيلة. تشكيلة فاخرة من المسكيات، العود، الورود والشرقيات — عطور مركزة تدوم من الصباح حتى المساء.</p>
+        <div class="hero-cta">
+          <a href="#products" class="btn btn-gold">
+            <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            <span data-i18n="heroCtaExplore">استكشف العطور</span>
+          </a>
+          <a href="https://wa.me/9613027355?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%A7%D9%85%D9%84%20%D8%A7%D9%84%D9%85%D8%B3%D9%83%20%F0%9F%91%8B" target="_blank" rel="noopener" class="btn btn-wa">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.49 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35ZM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.44-4.44 9.87-9.89 9.87Zm8.42-18.29A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.47-8.4Z"/></svg>
+            <span data-i18n="heroCtaWa">اطلب عبر واتساب</span>
+          </a>
+        </div>
+
+        <div class="hero-trust">
+          <div class="trust-item"><span class="trust-ico">✅</span> <span data-i18n="trust1">أصلية 100%</span></div>
+          <div class="trust-item"><span class="trust-ico">🚚</span> <span data-i18n="trust2">توصيل لكل لبنان</span></div>
+          <div class="trust-item"><span class="trust-ico">💵</span> <span data-i18n="trust3">الدفع عند الاستلام</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="bottle-frame">
+          <div class="ring ring-a"></div>
+          <div class="ring ring-b"></div>
+          <img src="assets/img/hero.jpg" alt="عطر عود ملكي فاخر من حامل المسك" class="hero-bottle">
+          <span class="spark s1">✦</span>
+          <span class="spark s2">✦</span>
+          <span class="spark s3">✦</span>
+        </div>
+        <div class="float-card fc-1">
+          <span class="fc-ico">🌿</span>
+          <div><strong data-i18n="fc1t">عود ومسك أصيل</strong><small data-i18n="fc1s">تركيبات شرقية فاخرة</small></div>
+        </div>
+        <div class="float-card fc-2">
+          <span class="fc-ico">⭐</span>
+          <div><strong data-i18n="fc2t">تقييم 4.9/5</strong><small data-i18n="fc2s">+500 عميل سعيد</small></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#collections" class="scroll-hint" aria-label="مرر للأسفل">
+      <span></span>
+    </a>
+  </section>
+
+  <!-- شريط متحرك -->
+  <div class="marquee" dir="ltr">
+    <div class="marquee-track" id="marqueeTrack">
+      <span data-i18n="m1">مسك أبيض</span><i>✦</i><span data-i18n="m2">عود ملكي</span><i>✦</i><span data-i18n="m3">عنبر ليلي</span><i>✦</i><span data-i18n="m4">ورد الطائف</span><i>✦</i><span data-i18n="m5">ياسمين بيروت</span><i>✦</i><span data-i18n="m6">زعفران الشرق</span><i>✦</i><span data-i18n="m7">فانيليا وعنبر</span><i>✦</i><span data-i18n="m8">مسك الغزال</span><i>✦</i><span data-i18n="m9">خشب الصندل</span><i>✦</i><span data-i18n="m10">مسك أسود</span><i>✦</i>
+      <span data-i18n="m1">مسك أبيض</span><i>✦</i><span data-i18n="m2">عود ملكي</span><i>✦</i><span data-i18n="m3">عنبر ليلي</span><i>✦</i><span data-i18n="m4">ورد الطائف</span><i>✦</i><span data-i18n="m5">ياسمين بيروت</span><i>✦</i><span data-i18n="m6">زعفران الشرق</span><i>✦</i><span data-i18n="m7">فانيليا وعنبر</span><i>✦</i><span data-i18n="m8">مسك الغزال</span><i>✦</i><span data-i18n="m9">خشب الصندل</span><i>✦</i><span data-i18n="m10">مسك أسود</span><i>✦</i>
+    </div>
+  </div>
+
+  <!-- ============ مجموعاتنا ============ -->
+  <section class="collections section" id="collections">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow" data-i18n="colEyebrow">تشكيلاتنا</span>
+        <h2><span data-i18n="colHead1">مجموعات</span> <span class="gold-grad" data-i18n="colHead2">العطور</span></h2>
+        <p data-i18n="colSub">أربع عائلات عطرية راقية… لكل منها حكاية وعبق خاص</p>
+      </div>
+      <div class="collections-grid">
+        <button class="collection-card reveal" data-filter="misk">
+          <img src="assets/img/p-misk-white.jpg" alt="مجموعة المسك">
+          <div class="col-overlay">
+            <h3 data-i18n="col1t">المسكيات</h3>
+            <p data-i18n="col1p">نقاء يلمس الروح</p>
+            <span class="col-link" data-i18n="col1l">اكتشف ←</span>
+          </div>
+        </button>
+        <button class="collection-card reveal" data-filter="oud">
+          <img src="assets/img/p-oud-royal.jpg" alt="مجموعة العود والعنبر">
+          <div class="col-overlay">
+            <h3 data-i18n="col2t">عود وعنبر</h3>
+            <p data-i18n="col2p">فخامة الملوك</p>
+            <span class="col-link" data-i18n="col2l">اكتشف ←</span>
+          </div>
+        </button>
+        <button class="collection-card reveal" data-filter="flowers">
+          <img src="assets/img/p-rose-taif.jpg" alt="مجموعة الزهور">
+          <div class="col-overlay">
+            <h3 data-i18n="col3t">الورود والزهور</h3>
+            <p data-i18n="col3p">أنوثة وأناقة</p>
+            <span class="col-link" data-i18n="col3l">اكتشف ←</span>
+          </div>
+        </button>
+        <button class="collection-card reveal" data-filter="oriental">
+          <img src="assets/img/p-vanilla.jpg" alt="المجموعة الشرقية">
+          <div class="col-overlay">
+            <h3 data-i18n="col4t">الشرقيات</h3>
+            <p data-i18n="col4p">دفء وحضور لا يُنسى</p>
+            <span class="col-link" data-i18n="col4l">اكتشف ←</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ العطور ============ -->
+  <section class="products-section section" id="products">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow" data-i18n="prEyebrow">تسوّق الآن</span>
+        <h2><span data-i18n="prHead1">عطورنا</span> <span class="gold-grad" data-i18n="prHead2">المميزة</span></h2>
+        <p data-i18n="prSub">مركّزة بيدي صانع عطور خبير — أضف إلى السلة واطلب عبر واتساب</p>
+      </div>
+
+      <!-- شريط أدوات التصفية -->
+      <div class="filter-bar reveal">
+        <div class="filter-pills" id="filterPills">
+          <button class="pill active" data-filter="all" data-i18n="fAll">الكل</button>
+          <button class="pill" data-filter="misk" data-i18n="fMusk">المسك</button>
+          <button class="pill" data-filter="oud" data-i18n="fOud">عود وعنبر</button>
+          <button class="pill" data-filter="flowers" data-i18n="fFlowers">زهور</button>
+          <button class="pill" data-filter="oriental" data-i18n="fOriental">شرقيات</button>
+        </div>
+        <div class="toolbar">
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="searchInput" placeholder="ابحث عن عطر…" data-i18n-ph="searchPh">
+          </label>
+          <select id="sortSelect" class="sort-select" aria-label="ترتيب">
+            <option value="featured" data-i18n="sortFeat">الأكثر تميزاً</option>
+            <option value="priceAsc" data-i18n="sortAsc">السعر: من الأقل للأعلى</option>
+            <option value="priceDesc" data-i18n="sortDesc">السعر: من الأعلى للأقل</option>
+            <option value="newest" data-i18n="sortNew">الأحدث أولاً</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        <!-- تُعبأ المنتجات عبر JavaScript -->
+      </div>
+      <p class="no-results" id="noResults" data-i18n="noRes" hidden>😔 لا توجد نتائج مطابقة… جرّب كلمة أخرى</p>
+    </div>
+  </section>
+
+  <!-- ============ كيف تطلب ============ -->
+  <section class="steps-section">
+    <div class="container">
+      <div class="sec-head reveal light">
+        <span class="sec-eyebrow" data-i18n="stEyebrow">أسهل مما تتخيل</span>
+        <h2><span data-i18n="stHead1">اطلب في</span> <span class="gold-grad" data-i18n="stHead2">4 خطوات</span></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step reveal"><span class="step-num">1</span><div class="step-ico">👃</div><h4 data-i18n="st1t">اختر عطرك</h4><p data-i18n="st1p">تصفّح مجموعاتنا واختر ما يناسب ذوقك</p></div>
+        <div class="step reveal"><span class="step-num">2</span><div class="step-ico">🛒</div><h4 data-i18n="st2t">أضفه إلى السلة</h4><p data-i18n="st2p">حدّد الحجم (50 أو 100 مل) والكمية</p></div>
+        <div class="step reveal"><span class="step-num">3</span><div class="step-ico">💬</div><h4 data-i18n="st3t">أرسل عبر واتساب</h4><p data-i18n="st3p">يُرسل طلبك جاهزاً إلى المحل تلقائياً</p></div>
+        <div class="step reveal"><span class="step-num">4</span><div class="step-ico">🚚</div><h4 data-i18n="st4t">يصلك حتى الباب</h4><p data-i18n="st4p">توصيل سريع لكل لبنان — الدفع عند الاستلام</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ من نحن ============ -->
+  <section class="about section" id="about">
+    <div class="container about-inner">
+      <div class="about-media reveal">
+        <img src="assets/img/hero.jpg" alt="داخل محل حامل المسك للعطور" class="about-img">
+        <div class="about-badge">
+          <strong>+10</strong>
+          <span data-i18n="abYears">سنوات من<br>الخبرة في العطور</span>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <span class="sec-eyebrow" data-i18n="abEyebrow">من نحن</span>
+        <h2><span data-i18n="abHead1">حكاية عطر</span> <span class="gold-grad" data-i18n="abHead2">من قلب بيروت</span></h2>
+        <p data-i18n="abP1">في قلب <strong>مار إلياس – بيروت</strong>، نصنع في «حامل المسك» تجربة عطرية استثنائية. ننتقي أجود أنواع المسك والعود والعنبر من منابعها، ونركّبها بعناية لنمنحك عطراً يليق بحضورك ويروي قصتك.</p>
+        <p data-i18n="abP2">كل عطر عندنا مركّز <strong>وأصلي 100%</strong>، بثبات يدوم طويلاً وفوحان يلفت الأنظار — لأن العطر ليس مجرد رائحة، بل هو انطباعٌ لا يُنسى.</p>
+        <ul class="about-feats">
+          <li>🌿 <span data-i18n="af1"><strong>مكوّنات أصلية فاخرة</strong><br><small>مسك وعود وعنبر من أفضل المصادر العالمية</small></span></li>
+          <li>🧴 <span data-i18n="af2"><strong>تركيز عالٍ (EDP)</strong><br><small>ثبات وفوحان يدومان طوال اليوم</small></span></li>
+          <li>🎁 <span data-i18n="af3"><strong>تغليف هدايا فاخر</strong><br><small>مجرّاناً على كل الطلبات</small></span></li>
+          <li>📞 <span data-i18n="af4"><strong>استشارة مجانية</strong><br><small>ساعدك في اختيار عطرك المناسب عبر واتساب</small></span></li>
+        </ul>
+        <a href="https://wa.me/9613027355" target="_blank" rel="noopener" class="btn btn-gold">
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+          <span data-i18n="abBtn">تحدّث معنا الآن</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ آراء العملاء ============ -->
+  <section class="reviews section" id="reviews">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow" data-i18n="revEyebrow">قالوا عنّا</span>
+        <h2><span data-i18n="revHead1">ماذا يقول</span> <span class="gold-grad" data-i18n="revHead2">عملاؤنا؟</span></h2>
+      </div>
+      <div class="reviews-grid">
+        <article class="review-card reveal" data-i18n="r1">
+          <div class="stars">★★★★★</div>
+          <p>"طلبت عود ملكي وتوصّل خلال ساعات ببيروت. الثبات خرافي والرائحة تخطف القلوب. أكيد رح أرجع أطلب!"</p>
+          <footer><span class="avatar">ر</span><div><strong>رنا خ.</strong><small>الأشرفية</small></div></footer>
+        </article>
+        <article class="review-card reveal" data-i18n="r2">
+          <div class="stars">★★★★★</div>
+          <p>"أجمل مسك أبيض جربته بلبنان. التغليف فخم ومناسب للهدايا والفريق نصحني بكل احترافية عبر واتساب. شكراً!"</p>
+          <footer><span class="avatar">م</span><div><strong>محمد ع.</strong><small>مار إلياس</small></div></footer>
+        </article>
+        <article class="review-card reveal" data-i18n="r3">
+          <div class="stars">★★★★★</div>
+          <p>"عنبر ليلي صار توقيعي الشخصي. الطلب عبر واتساب سهل جداً والدفع عند الاستلام مريح. تجربة راقية من البداية للنهاية."</p>
+          <footer><span class="avatar">س</span><div><strong>سارة م.</strong><small>الحمرا</small></div></footer>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ شريط واتساب ============ -->
+  <section class="cta-band">
+    <div class="container cta-inner reveal">
+      <div>
+        <h2><span data-i18n="ctaHead1">جاهز تعطّر بأجمل</span> <span class="gold-grad" data-i18n="ctaHead2">العطور الشرقية؟</span></h2>
+        <p data-i18n="ctaP">راسلنا الآن على واتساب وسنساعدك باختيار عطرك — أو اطلب مباشرة من السلة 👇</p>
+      </div>
+      <a href="https://wa.me/9613027355?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%A7%D9%85%D9%84%20%D8%A7%D9%84%D9%85%D8%B3%D9%83%20%F0%9F%91%8B" target="_blank" rel="noopener" class="btn btn-wa btn-lg">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.49 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35ZM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.44-4.44 9.87-9.89 9.87Zm8.42-18.29A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.47-8.4Z"/></svg>
+        <span data-i18n="ctaWa">تواصل عبر واتساب</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ تواصل معنا ============ -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow" data-i18n="conEyebrow">زورونا أو راسلونا</span>
+        <h2><span data-i18n="conHead1">تواصل</span> <span class="gold-grad" data-i18n="conHead2">معنا</span></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <span class="cc-ico">📍</span>
+          <h4 data-i18n="c1t">العنوان</h4>
+          <p data-i18n="c1p">مار إلياس — شارع <strong>المدرسة المريمية</strong><br>بيروت، لبنان</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mar+Elias+Beirut+Lebanon" target="_blank" rel="noopener" class="text-link" data-i18n="c1l">افتح في خرائط جوجل ←</a>
+        </div>
+        <div class="contact-card reveal">
+          <span class="cc-ico">📞</span>
+          <h4 data-i18n="c2t">الهاتف / واتساب</h4>
+          <p dir="ltr"><strong>03 027355</strong><br><span data-i18n="c2p2">متواجدون يومياً للرد على استفساراتك</span></p>
+          <a href="tel:+9613027355" class="text-link" data-i18n="c2l">اتصل الآن ←</a>
+        </div>
+        <div class="contact-card reveal">
+          <span class="cc-ico">🕙</span>
+          <h4 data-i18n="c3t">أوقات الدوام</h4>
+          <p><span data-i18n="c3p1">الاثنين – السبت:</span> <strong>10:00 ص – 9:00 م</strong><br><span data-i18n="c3p2">الأحد:</span> <strong>10:00 ص – 2:00 م</strong></p>
+        </div>
+        <div class="contact-card reveal">
+          <span class="cc-ico">💬</span>
+          <h4 data-i18n="c4t">استشارة عطرية</h4>
+          <p data-i18n="c4p">حائر بين العطور؟ راسلنا وسنرشدك<br>لعطرك المثالي خلال دقائق</p>
+          <a href="https://wa.me/9613027355" target="_blank" rel="noopener" class="text-link" data-i18n="c4l">ابدأ محادثة ←</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ تذييل ============ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <span class="brand-mark sm">
+            <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="42" height="42" rx="12" fill="url(#goldGrad)"/>
+              <path d="M24 10c6 7.5 9.5 12 9.5 16.5a9.5 9.5 0 1 1-19 0C14.5 22 18 17.5 24 10Z" fill="#14100a"/>
+              <path d="M24 21.5c3.3 3.6 5 6.2 5 8.3a5 5 0 1 1-10 0c0-2.1 1.7-4.7 5-8.3Z" fill="url(#goldGrad)"/>
+              <path d="M21.5 35.5h5" stroke="#f0d48c" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="brand-text"><strong data-i18n="fBrand">حامل المسك</strong><small data-i18n="fBrandSub">مار إلياس • بيروت</small></span>
+        </a>
+        <p data-i18n="fDesc">وجهتك الأولى للعطور الشرقية الأصيلة في بيروت. مسك، عود، عنبر وورود — بجودة تليق بك.</p>
+        <div class="socials">
+          <a href="https://wa.me/9613027355" target="_blank" rel="noopener" aria-label="واتساب">💬</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="انستغرام">📷</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="فيسبوك">👍</a>
+          <a href="tel:+9613027355" aria-label="اتصال">📞</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="fCol1">روابط سريعة</h5>
+        <a href="#home" data-i18n="navHome">الرئيسية</a>
+        <a href="#collections" data-i18n="navCollections">مجموعاتنا</a>
+        <a href="#products" data-i18n="navProducts">العطور</a>
+        <a href="#about" data-i18n="navAbout">من نحن</a>
+        <a href="#contact" data-i18n="navContact">تواصل معنا</a>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="fCol2">مجموعاتنا</h5>
+        <a href="#products" data-cat="misk" data-i18n="col1t">المسكيات</a>
+        <a href="#products" data-cat="oud" data-i18n="col2t">عود وعنبر</a>
+        <a href="#products" data-cat="flowers" data-i18n="col3t">الورود والزهور</a>
+        <a href="#products" data-cat="oriental" data-i18n="col4t">الشرقيات</a>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="fCol3">التواصل</h5>
+        <p data-i18n="fAdr">مار إلياس — بيروت، لبنان</p>
+        <p dir="ltr">03 027355</p>
+        <p data-i18n="fHours">يومياً: 10ص – 9م</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p data-i18n="fCopy">© <span id="year">2025</span> حامل المسك — جميع الحقوق محفوظة. صُنع بحب في بيروت 🇱🇧</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- زر واتساب عائم -->
+  <a href="https://wa.me/9613027355?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%A7%D9%85%D9%84%20%D8%A7%D9%84%D9%85%D8%B3%D9%83%20%F0%9F%91%8B" target="_blank" rel="noopener" class="wa-float" aria-label="واتساب" title="03 027355">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.49 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35ZM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.44-4.44 9.87-9.89 9.87Zm8.42-18.29A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.47-8.4Z"/></svg>
+  </a>
+
+  <!-- ============ سلة التسوق (Drawer) ============ -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="سلة التسوق">
+    <div class="cart-head">
+      <h3 data-i18n="cartTitle">🛒 سلة التسوق</h3>
+      <button class="close-btn" id="cartCloseBtn" aria-label="إغلاق السلة">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- تُعبأ عبر JS -->
+    </div>
+    <div class="cart-empty" id="cartEmpty">
+      <span class="empty-ico">🧴</span>
+      <p data-i18n="cEmptyT">سلّتك فارغة…</p>
+      <small data-i18n="cEmptyS">أضف عطورك المفضلة واطلبها عبر واتساب</small>
+      <button class="btn btn-gold" id="continueShopping"><span data-i18n="cEmptyB">تصفّح العطور</span></button>
+    </div>
+    <div class="cart-foot" id="cartFoot" hidden>
+      <div class="cart-details">
+        <label for="custName" data-i18n="cNameL">اسمك الكريم (اختياري)</label>
+        <input type="text" id="custName" placeholder="مثال: رنا خليل" autocomplete="name" data-i18n-ph="cNamePh">
+        <label for="custNote" data-i18n="cNoteL">ملاحظات / عنوان التوصيل (اختياري)</label>
+        <textarea id="custNote" rows="2" placeholder="مثال: شارع المدرسة المريمية، بناية رقم 5…" data-i18n-ph="cNotePh"></textarea>
+      </div>
+      <div class="cart-total-row">
+        <span data-i18n="cTotalL">الإجمالي</span>
+        <strong id="cartTotal">0</strong>
+      </div>
+      <button class="btn btn-wa btn-lg btn-block" id="checkoutBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07a8.2 8.2 0 0 1-2.4-1.49 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35ZM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 9.88 9.9c0 5.44-4.44 9.87-9.89 9.87Zm8.42-18.29A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.16-3.47-8.4Z"/></svg>
+        <span data-i18n="cCheck">إتمام الطلب عبر واتساب</span>
+      </button>
+      <p class="cart-safe" data-i18n="cSafe">🔒 طلبك يُرسل مباشرة إلى واتساب المحل — بدون دفع إلكتروني</p>
+    </div>
+  </aside>
+
+  <!-- ============ نافذة عرض المنتج ============ -->
+  <div class="modal" id="quickModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="تفاصيل العطر">
+      <button class="close-btn modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+      <div class="modal-body" id="modalBody"><!-- تُعبأ عبر JS --></div>
+    </div>
+  </div>
+
+  <!-- إشعار -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
