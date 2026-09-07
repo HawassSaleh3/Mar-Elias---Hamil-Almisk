@@ -33,8 +33,14 @@
   };
 
   function loadCart() {
-    try { return JSON.parse(localStorage.getItem("hamil-cart-v1")) || []; }
-    catch (e) { return []; }
+    try {
+      const raw = JSON.parse(localStorage.getItem("hamil-cart-v1")) || [];
+      /* توحيد الأنواع: الحجم رقم دائماً والكمية رقم صحيح موجب
+         (PRODUCTS مباشرة لأن getProduct لم يُعرَّف بعد في هذه المرحلة) */
+      return raw
+        .filter((it) => it && PRODUCTS.some((p) => p.id === it.id))
+        .map((it) => ({ id: it.id, size: Number(it.size) || 100, qty: Math.max(1, parseInt(it.qty, 10) || 1) }));
+    } catch (e) { return []; }
   }
   function saveCart() {
     try { localStorage.setItem("hamil-cart-v1", JSON.stringify(state.cart)); } catch (e) {}
@@ -159,25 +165,29 @@
   function addToCart(id, size = 100, qty = 1) {
     const p = getProduct(id);
     if (!p) return;
-    const existing = state.cart.find((it) => it.id === id && it.size === size);
+    const itemSize = Number(size);
+    const existing = state.cart.find((it) => it.id === id && Number(it.size) === itemSize);
     if (existing) existing.qty += qty;
-    else state.cart.push({ id, size, qty });
+    else state.cart.push({ id, size: itemSize, qty });
     saveCart();
     renderCart();
     toast(t("addedToast", { name: p.name, size, unit: t("ml") }), "ok");
   }
 
+  /* مطابقة عنصر السلة مع تحويل الحجم إلى رقم لتفادي اختلاف النوع (نص/رقم) */
+  const sameItem = (x, id, size) => x.id === id && Number(x.size) === Number(size);
+
   function setQty(id, size, delta) {
-    const it = state.cart.find((x) => x.id === id && x.size === size);
+    const it = state.cart.find((x) => sameItem(x, id, size));
     if (!it) return;
     it.qty += delta;
-    if (it.qty <= 0) state.cart = state.cart.filter((x) => !(x.id === id && x.size === size));
+    if (it.qty <= 0) state.cart = state.cart.filter((x) => !sameItem(x, id, size));
     saveCart();
     renderCart();
   }
 
   function removeItem(id, size) {
-    state.cart = state.cart.filter((x) => !(x.id === id && x.size === size));
+    state.cart = state.cart.filter((x) => !sameItem(x, id, size));
     saveCart();
     renderCart();
     if (state.cart.length === 0) toast(t("cartEmptiedToast"));
