@@ -27,6 +27,9 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* مهم: أي عنصر يحمل الخاصية hidden يجب أن يختفي حتى لو كان display معرّفاً */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -626,8 +629,8 @@ section { scroll-margin-top: 84px; }
 .overlay.show { opacity: 1; visibility: visible; }
 
 .cart-drawer {
-  /* في التخطيط RTL: inset-inline-start = الجهة اليمنى، لذا تُخفى باتجاه +X */
-  position: fixed; top: 0; bottom: 0; inset-inline-start: 0; z-index: 1300;
+  /* الموقع كله RTL: السلة تلتصق باليمين وتنزلق من خارج الشاشة يميناً */
+  position: fixed; top: 0; bottom: 0; right: 0; left: auto; z-index: 1300;
   width: min(420px, 94vw);
   background: linear-gradient(180deg, #15100a, #0e0b08);
   border-inline-end: 1px solid var(--line);
@@ -635,6 +638,7 @@ section { scroll-margin-top: 84px; }
   transform: translateX(105%);
   transition: transform .4s cubic-bezier(.22,1,.36,1);
   display: flex; flex-direction: column;
+  will-change: transform;
 }
 .cart-drawer.open { transform: translateX(0); }
 
@@ -674,7 +678,10 @@ section { scroll-margin-top: 84px; }
 .ci-del { align-self: end; color: #6f6350; font-size: .9rem; transition: color .2s; background: none; border: none; }
 .ci-del:hover { color: var(--danger); }
 
+/* العرض الافتراضي مرئي: تتحكم JavaScript بالظهور عبر hidden */
 .cart-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 30px; }
+/* كتلة الدفع (أسفل السلة): الافتراضي مخفي — تُظهره JS بإزالة hidden */
+.cart-foot[hidden] { display: none; }
 .empty-ico { font-size: 3.2rem; opacity: .7; }
 .cart-empty p { font-family: var(--font-head); font-size: 1.3rem; color: var(--cream); }
 .cart-empty small { color: var(--muted); margin-bottom: 18px; }
@@ -778,7 +785,7 @@ section { scroll-margin-top: 84px; }
   .search-box { flex: 1; }
   .search-box input { width: 100%; }
   .nav-links {
-    position: fixed; inset-inline-start: 0; top: 0; bottom: 0;
+    position: fixed; right: 0; top: 0; bottom: 0;
     width: min(300px, 84vw); z-index: 1350;
     flex-direction: column; gap: 6px;
     background: linear-gradient(180deg, #131009, #0b0906);

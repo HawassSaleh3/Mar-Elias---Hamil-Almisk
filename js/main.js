@@ -182,6 +182,7 @@
     state.cart = state.cart.filter((x) => !(x.id === id && x.size === size));
     saveCart();
     renderCart();
+    if (state.cart.length === 0) toast("تم إفراغ السلة");
   }
 
   function renderCart() {
@@ -191,8 +192,10 @@
     if (totalQty > 0) setTimeout(() => cartCountEl.classList.remove("pop"), 400);
 
     const empty = state.cart.length === 0;
-    cartEmptyEl.hidden = !empty;
-    cartFootEl.hidden = empty;
+    /* إظهار/إخفاء صريح لكل الأقسام — لا نعتمد على الترتيب الافتراضي */
+    cartEmptyEl.hidden = !empty;          // رسالة «فارغة»: تظهر فقط إذا كانت السلة فارغة
+    cartFootEl.hidden = empty;            // خانة الطلب: تظهر فقط إذا كانت السلة فيها عناصر
+    cartItemsEl.classList.toggle("hidden", empty);
 
     if (empty) {
       cartItemsEl.innerHTML = "";
