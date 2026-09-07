@@ -142,7 +142,8 @@
   function syncCardPrice(card, size) {
     const p = getProduct(card.dataset.id);
     const el = $(`#price-${p.id}`, card);
-    if (el) el.innerHTML = I18N.money(size === 50 ? p.price50 : p.price100);
+    /* توحيد النوع: الحجم يأتي من data-size كنص ("50") بينما المقارنة تتم برقم */
+    if (el) el.innerHTML = I18N.money(Number(size) === 50 ? p.price50 : p.price100);
   }
 
   /* ============================================================
@@ -206,6 +207,7 @@
 
     if (empty) {
       cartItemsEl.innerHTML = "";
+      cartTotalEl.innerHTML = I18N.money(0);
       return;
     }
     cartItemsEl.innerHTML = state.cart.map((it) => {
