@@ -419,24 +419,41 @@
   <div class="overlay" id="overlay"></div>
   <aside class="cart-drawer" id="cartDrawer" aria-label="سلة التسوق">
     <div class="cart-head">
-      <h3 data-i18n="cartTitle">🛒 سلة التسوق</h3>
+      <h3>
+        <svg class="cart-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1.6"/>
+          <circle cx="19" cy="21" r="1.6"/>
+          <path d="M2.5 3h2l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
+        </svg>
+        <span data-i18n="cartTitle">سلة التسوق</span>
+      </h3>
       <button class="close-btn" id="cartCloseBtn" aria-label="إغلاق السلة">✕</button>
     </div>
     <div class="cart-items" id="cartItems">
       <!-- تُعبأ عبر JS -->
     </div>
     <div class="cart-empty" id="cartEmpty">
-      <span class="empty-ico">🧴</span>
+      <span class="empty-ico" aria-hidden="true">
+        <svg class="empty-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1.6"/>
+          <circle cx="19" cy="21" r="1.6"/>
+          <path d="M2.5 3h2l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
+        </svg>
+      </span>
       <p data-i18n="cEmptyT">سلّتك فارغة…</p>
       <small data-i18n="cEmptyS">أضف عطورك المفضلة واطلبها عبر واتساب</small>
       <button class="btn btn-gold" id="continueShopping"><span data-i18n="cEmptyB">تصفّح العطور</span></button>
     </div>
     <div class="cart-foot" id="cartFoot" hidden>
       <div class="cart-details">
-        <label for="custName" data-i18n="cNameL">اسمك الكريم (اختياري)</label>
-        <input type="text" id="custName" placeholder="مثال: رنا خليل" autocomplete="name" data-i18n-ph="cNamePh">
-        <label for="custNote" data-i18n="cNoteL">ملاحظات / عنوان التوصيل (اختياري)</label>
-        <textarea id="custNote" rows="2" placeholder="مثال: شارع المدرسة المريمية، بناية رقم 5…" data-i18n-ph="cNotePh"></textarea>
+        <div class="cart-field">
+          <label for="custName" data-i18n="cNameL">اسمك الكريم (اختياري)</label>
+          <input type="text" id="custName" placeholder="مثال: رنا خليل" autocomplete="name" data-i18n-ph="cNamePh">
+        </div>
+        <div class="cart-field">
+          <label for="custNote" data-i18n="cNoteL">ملاحظات / عنوان التوصيل (اختياري)</label>
+          <textarea id="custNote" rows="1" placeholder="مثال: شارع المدرسة المريمية، بناية رقم 5…" data-i18n-ph="cNotePh"></textarea>
+        </div>
       </div>
       <div class="cart-total-row">
         <span data-i18n="cTotalL">الإجمالي</span>

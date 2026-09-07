@@ -206,17 +206,19 @@
       <div class="cart-item">
         <img class="ci-img" src="${p.img}" alt="${esc(p.name)}">
         <div class="ci-info">
-          <span class="ci-name">${esc(p.name)}</span>
-          <span class="ci-meta">${it.size} ${t("ml")} • ${esc(t("perItem"))}: ${I18N.moneyPlain(price)}</span>
-          <div class="ci-qty">
-            <button class="qty-btn" data-act="dec" data-id="${p.id}" data-size="${it.size}" aria-label="−">−</button>
-            <span>${it.qty}</span>
-            <button class="qty-btn" data-act="inc" data-id="${p.id}" data-size="${it.size}" aria-label="+">+</button>
+          <div class="ci-head">
+            <span class="ci-name">${esc(p.name)}</span>
+            <button class="ci-del" data-act="del" data-id="${p.id}" data-size="${it.size}" aria-label="×">✕</button>
           </div>
-        </div>
-        <div class="ci-right">
-          <button class="ci-del" data-act="del" data-id="${p.id}" data-size="${it.size}" aria-label="×">✕</button>
-          <span class="ci-price">${I18N.money(price * it.qty)}</span>
+          <span class="ci-meta">${it.size} ${t("ml")} • ${esc(t("perItem"))}: ${I18N.moneyPlain(price)}</span>
+          <div class="ci-bottom">
+            <div class="ci-qty">
+              <button class="qty-btn" data-act="dec" data-id="${p.id}" data-size="${it.size}" aria-label="−">−</button>
+              <span>${it.qty}</span>
+              <button class="qty-btn" data-act="inc" data-id="${p.id}" data-size="${it.size}" aria-label="+">+</button>
+            </div>
+            <span class="ci-price">${I18N.money(price * it.qty)}</span>
+          </div>
         </div>
       </div>`;
     }).join("");

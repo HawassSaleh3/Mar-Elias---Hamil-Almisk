@@ -152,7 +152,7 @@
     fCopy: "© <span id=\"year\">2025</span> Hamil Al Misk — All rights reserved. Crafted with love in Beirut 🇱🇧",
 
     /* السلة */
-    cartTitle: "🛒 Shopping Cart",
+    cartTitle: "Shopping Cart",
     cEmptyT: "Your cart is empty…",
     cEmptyS: "Add your favorite perfumes and order them via WhatsApp",
     cEmptyB: "Browse Perfumes",
